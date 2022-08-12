@@ -89,7 +89,11 @@ class Parser {
         var self = this;
 
         self.constants = {};
-        self.variables = {};
+        self.variables = {};        
+        // F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m]) 
+        self.formula = ko.observable("F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])");
+        self.left = ko.observable("");
+        self.right = ko.observable("");
 
         self.prepare = function () {
             var f = self.formula();
@@ -145,35 +149,37 @@ class Parser {
                 }
 
                 
-                return f;
+                
+                
+                self.right(f);
             }
             else {
-                return f;
+                //todo: alert user about the wrong format of the equation
+                self.right("equation format error");
             }
         }
 
-        // F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m]) 
-        self.formula = ko.observable("F[N] = 6.67259e-11  * x  * m1[kg] * m2[kg] / (d[m] * d[m])");
-        self.parsedOutput = function () {
-            var res = {};
-            const parts = self.formula().split('=');
-            if (parts.length == 2) {
-                const o = parts[0].match(/(.*?)\[(.*?)\]/);
-                res.Output = {
-                    "text": o[0],
-                    "quantity": o[1],
-                    "unit": o[2]
-                }
+
+        // self.parsedOutput = function () {
+        //     var res = {};
+        //     const parts = self.formula().split('=');
+        //     if (parts.length == 2) {
+        //         const o = parts[0].match(/(.*?)\[(.*?)\]/);
+        //         res.Output = {
+        //             "text": o[0],
+        //             "quantity": o[1],
+        //             "unit": o[2]
+        //         }
 
 
 
-                const dummy = 0;
-            }
-            else {
-                //todo: inform the user about the wrong formula format
-                console.log("wrong formula format.")
-            }
-        }
+        //         const dummy = 0;
+        //     }
+        //     else {
+        //         //todo: inform the user about the wrong formula format
+        //         console.log("wrong formula format.")
+        //     }
+        // }
     }
 }
 
@@ -187,18 +193,24 @@ class ViewModel {
         self.Models = new Models(self.IO);
         self.Inputs = new Inputs();
         self.Parser = new Parser();
+        self.Parser.prepare();
         self.Html = function () {
             var h = "";
-            for (const i in self.Inputs.inputs()) {
-                if (Object.hasOwnProperty.call(self.Inputs.inputs(), i)) {
-                    const input = self.Inputs.inputs()[i];
+            const vars = self.Parser.variables;
+            for (const v in vars) {
+                if (Object.hasOwnProperty.call(vars, v)) {
+                    // add input observable
+                    self.Inputs.AddInput(v);
+                    
+                    // add html for the input observable
                     h += `
-                <div data-bind="text: Inputs.inputs().${i}" data-binding-name="${i}"></div>
-                <div class="flex justify-start items-center my-2" data-binding-name="${i}">
-                    <div class="w-20">${i}</div>
-                    <input type="text" data-bind="value: Inputs.inputs().${i}" class="form-control">
+                <div data-bind="text: Inputs.inputs().${v}" data-binding-name="${v}"></div>
+                <div class="flex justify-start items-center my-2" data-binding-name="${v}">
+                    <div class="w-20">${vars[v]}</div>
+                    <input type="text" data-bind="value: Inputs.inputs().${v}" class="form-control">
                 </div>
                 `;
+
                 }
             }
 
@@ -213,9 +225,19 @@ class ViewModel {
             return h;
         }
 
-        self.Output = function () {
-            return self.Inputs.inputs().input_0() * self.Inputs.inputs().input_1();
-        };
+        self.Output = ko.pureComputed( function () {
+            var f = self.Parser.right();
+            f = f.replace(/_(v\d+)/gm, "self.Inputs.inputs().$1()");
+            var cs = self.Parser.constants;
+            for (const c in cs) {
+                if (Object.hasOwnProperty.call(cs, c)) {
+                    f = f.replace(/(_c\d+)/gm, cs[c]);
+                    
+                }
+            }
+            console.log(f);
+            return eval(f); //self.Inputs.inputs().v0() * self.Inputs.inputs().v1();
+        });
 
         self.input = ko.observable();
     }
@@ -239,10 +261,10 @@ var appliedModel = new ViewModel();
 
 
 
-for (let index = 0; index < 5; index++) {
-    const bindingName = `input_${index}`;
-    appliedModel.Inputs.AddInput(bindingName);
-}
+// for (let index = 0; index < 5; index++) {
+//     const bindingName = `input_${index}`;
+//     appliedModel.Inputs.AddInput(bindingName);
+// }
 
 
 ko.applyBindings(appliedModel);
