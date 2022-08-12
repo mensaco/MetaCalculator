@@ -101,29 +101,50 @@ class Parser {
 
                 // replace constant numbers in scientific notation
                 var matches = f.match(/(\d+\.*\d+e[-+]?\d+)/gm);
-                for (let mi = 0; mi < matches.length; mi++) {
-                    self.constants[`c${mi}`] = matches[mi];
-                    f = f.replace(matches[mi], `_c${mi}`)
+                var matchesSet = {};  
+                var c = 0;
+                for (let mi = 0; mi < matches.length; mi++){
+                    const mm = matches[mi].trim();
+                    if(!matchesSet[mm]){
+                        matchesSet[mm] = c;
+                        c++;
+                    }
+                }
+                for (const match in matchesSet) {
+                    if (Object.hasOwnProperty.call(matchesSet, match)) {
+                        self.constants[`c${matchesSet[match]}`] = match;
+                        while(f.includes(match)){
+                            f = f.replace(match, `_c${matchesSet[match]}`);
+                        }
+                        
+                    }
                 }
 
                 // put spacing around operators for good measure
                 f = f.replace(/([+-\/*\(\)])/gm, " $1 ");
-                console.log(f);
+                //console.log(f);
 
                 // process variables with (SI) units
-                //matches = f.match(/([a-zA-Z]+_?\d*\[.*?])/gm);
                 matches = f.match(/\W[a-zA-Z]+_?[a-zA-Z0-9]*(\[.*?\])?\W/gm);
-                var v = 0;
-                for (let mi = 0; mi < matches.length; mi++) {
-                    self.variables[`v${v}`] = {
-                        "name": matches[mi].trim()
-                    };
-                    f = f.replace(matches[mi], `_v${v}`)
-                    v++;
+                matchesSet = {};
+                c = 0;
+                for (let mi = 0; mi < matches.length; mi++){
+                    const mm = matches[mi].trim();
+                    if(!matchesSet[mm]){
+                        matchesSet[mm] = c;
+                        c++;
+                    }
+                }
+                for (const match in matchesSet) {
+                    if (Object.hasOwnProperty.call(matchesSet, match)) {
+                        self.variables[`v${matchesSet[match]}`] = match;
+                        while(f.includes(match)){
+                            f = f.replace(match, `_v${matchesSet[match]}`);
+                        }
+                    }
                 }
 
-
-
+                
                 return f;
             }
             else {
