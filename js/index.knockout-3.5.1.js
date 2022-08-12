@@ -75,7 +75,7 @@ class Inputs {
     constructor() {
         const self = this;
         self.inputs = ko.observable({});
-        
+
         self.AddInput = function (bindingName) {
             console.log(`Adding observed input "${bindingName}"`)
             self.inputs()[bindingName] = ko.observable();
@@ -84,11 +84,75 @@ class Inputs {
     }
 }
 
-class Outputs{
+class Parser {
     constructor() {
         var self = this;
-        //self.outputs = 
 
+        self.constants = {};
+        self.variables = {};
+
+        self.prepare = function () {
+            var f = self.formula();
+            f = f.replace(/ /g, "");
+            const parts = f.split("=");
+            if (parts.length == 2) {
+                self.left = parts[0];
+                f = parts[1];
+
+                // replace constant numbers in scientific notation
+                var matches = f.match(/(\d+\.*\d+e[-+]?\d+)/gm);
+                for (let mi = 0; mi < matches.length; mi++) {
+                    self.constants[`c${mi}`] = matches[mi];
+                    f = f.replace(matches[mi], `_c${mi}`)
+                }
+
+                // put spacing around operators for good measure
+                f = f.replace(/([+-\/*\(\)])/gm, " $1 ");
+                console.log(f);
+
+                // process variables with (SI) units
+                //matches = f.match(/([a-zA-Z]+_?\d*\[.*?])/gm);
+                matches = f.match(/\W[a-zA-Z]+_?[a-zA-Z0-9]*(\[.*?\])?\W/gm);
+                var v = 0;
+                for (let mi = 0; mi < matches.length; mi++) {
+                    self.variables[`v${v}`] = {
+                        "name": matches[mi].trim()
+                    };
+                    f = f.replace(matches[mi], `_v${v}`)
+                    v++;
+                }
+
+
+
+                return f;
+            }
+            else {
+                return f;
+            }
+        }
+
+        // F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m]) 
+        self.formula = ko.observable("F[N] = 6.67259e-11  * x  * m1[kg] * m2[kg] / (d[m] * d[m])");
+        self.parsedOutput = function () {
+            var res = {};
+            const parts = self.formula().split('=');
+            if (parts.length == 2) {
+                const o = parts[0].match(/(.*?)\[(.*?)\]/);
+                res.Output = {
+                    "text": o[0],
+                    "quantity": o[1],
+                    "unit": o[2]
+                }
+
+
+
+                const dummy = 0;
+            }
+            else {
+                //todo: inform the user about the wrong formula format
+                console.log("wrong formula format.")
+            }
+        }
     }
 }
 
@@ -101,7 +165,8 @@ class ViewModel {
         self.IO = new IO();
         self.Models = new Models(self.IO);
         self.Inputs = new Inputs();
-        self.Html = function () {             
+        self.Parser = new Parser();
+        self.Html = function () {
             var h = "";
             for (const i in self.Inputs.inputs()) {
                 if (Object.hasOwnProperty.call(self.Inputs.inputs(), i)) {
@@ -127,7 +192,7 @@ class ViewModel {
             return h;
         }
 
-        self.Output = function(){
+        self.Output = function () {
             return self.Inputs.inputs().input_0() * self.Inputs.inputs().input_1();
         };
 
