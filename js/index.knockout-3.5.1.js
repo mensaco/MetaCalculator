@@ -92,6 +92,8 @@ class Outputs{
     }
 }
 
+
+
 class ViewModel {
     constructor() {
         var self = this;
@@ -113,8 +115,22 @@ class ViewModel {
                 `;
                 }
             }
+
+            h += `
+                
+                <div class="flex justify-start items-center my-2" data-binding-name="Output">
+                    <div class="w-20">Output:</div>
+                    <input type="text" data-bind="value: Output()" class="form-control">
+                </div>
+                `;
+
             return h;
         }
+
+        self.Output = function(){
+            return self.Inputs.inputs().input_0() * self.Inputs.inputs().input_1();
+        };
+
         self.input = ko.observable();
     }
 }
