@@ -5,7 +5,7 @@
     "prod": "npx tailwindcss -i Tailwind.css -o ../css/Styles.css --minify"
   },
   "devDependencies": {
-    "tailwindcss": "^3.0.7"
+    "tailwindcss": "^3.1.8"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.0"

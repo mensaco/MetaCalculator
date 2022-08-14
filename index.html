@@ -5,25 +5,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meta Calculator</title>
-    <link rel="stylesheet" href="/css/Styles.css">
+    <title>Meta Calculator 1.0.0.1</title>
+    <link href="./css/Styles.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="bg-gray-100 p-2">
+    <div class="h-screen bg-gray-50 p-2">
+        <div class="w-full h-full md:w-5/6 lg:w-4/5 xl:w-3/4 2xl:w-2/3  mx-auto p-2 bg-white border border-gray-300">
 
+            <div class="my-2 p-2 bg-sky-300 rounded-md">
+                <div class="mb-1">formula për ta llogaritur:</div>
+                <div><input data-bind="value: formula" class="form-control"></div>
+            </div>
+
+            <div class="mt-5">të dhënat hyrëse:</div>
+            <div data-bind="foreach: Parser.variables()">
+                <div class="my-2 p-2 bg-green-300 rounded-md" >
+                    <div class="mb-1" data-bind="text: label()"></div>
+                    <input type="text" data-bind="value: value" class="form-control">
+                </div>
+            </div>
+
+            <div class="mt-5">vlera e llogaritur:</div>
+            <div>
+                <div class="my-2 p-2 bg-amber-300 rounded-md" >
+                    <div class="mb-1" data-bind="text: Parser.left()"></div>
+                    <input type="text" data-bind="value: Parser.computed()" class="form-control">
+                </div>
+            </div>
+
+            <pre class="absolute w-0 h-0" data-bind="text: Parser.parsed().empty()"></pre>
+            
+        </div>
     </div>
-
-    <div class="p-2" data-bind="dhtml: Html()"></div>
-
-
-
-
-
-
+    <script src="/js/knockout-3.5.1.js"></script>
+    <script src="/js/index.ko.js"></script>
 </body>
-
-<script src="/js/knockout-3.5.1.js"></script>
-<script src="/js/index.knockout-3.5.1.js"></script>
 
 </html>
