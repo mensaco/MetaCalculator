@@ -49,6 +49,9 @@ class Parser {
 
                 });
 
+                // masko funksionet 
+                f = f.replace(/Math\./gm, "_mfunct");
+
 
                 // rrethoji me karakter bosh
                 f = " " + f.replace(/([+-\/*\(\)])/gm, " $1 ") + " ";
@@ -97,6 +100,8 @@ class Parser {
                     }
                 });
 
+                // demasko funksionet
+                f = f.replace(/_mfunct/gm, "Math.");
 
                 // ruaje formulen kompakte
                 self.compactFormula(f);
