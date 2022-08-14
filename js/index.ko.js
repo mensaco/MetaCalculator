@@ -2,7 +2,7 @@ class Parser {
     constructor(parentVM) {
         var self = this;
 
-        self.constants = ko.observableArray([]);
+        //self.constants = ko.observableArray([]);
         self.variables = ko.observableArray([]);
         self.compactFormula = ko.observable("");
 
@@ -37,14 +37,14 @@ class Parser {
                     const c = {
                         "name": `_c${i}`, "value": ko.observable(m.trim())
                     };
-                    // fute ne observableArray
-                    const foundConstant = self.constants().find(cc => cc.name === c.name);
-                    if (!foundConstant) {
-                        self.constants.push(c);
-                    }
-                    else {
-                        foundConstant.value(c.value());
-                    }
+                    // // fute ne observableArray
+                    // const foundConstant = self.constants().find(cc => cc.name === c.name);
+                    // if (!foundConstant) {
+                    //     self.constants.push(c);
+                    // }
+                    // else {
+                    //     foundConstant.value(c.value());
+                    // }
 
 
                 });
@@ -85,12 +85,12 @@ class Parser {
 
                 f = self.right();
 
-                // zevendeso te gjitha rastet e konstanteve ne formule
-                self.constants().forEach(c => {
-                    while (f.includes(c.value())) {
-                        f = f.replace(c.value(), c.name);
-                    }
-                });
+                // // zevendeso te gjitha rastet e konstanteve ne formule
+                // self.constants().forEach(c => {
+                //     while (f.includes(c.value())) {
+                //         f = f.replace(c.value(), c.name);
+                //     }
+                // });
 
 
                 // zevendeso te gjitha rastet e ndryshoreve ne formule
@@ -127,7 +127,7 @@ class Parser {
                 var f = self.compactFormula();
                 if (!f) return "";
                 f = f.replace(/_v(\d+)/gm, "self.variables()[$1].value()");
-                f = f.replace(/_c(\d+)/gm, "self.constants()[$1].value()");
+                //f = f.replace(/_c(\d+)/gm, "self.constants()[$1].value()");
     
                 return eval(f);
             }
