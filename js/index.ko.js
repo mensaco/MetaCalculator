@@ -27,6 +27,14 @@ class Formulas {
         var self = this;
         self.formulas = ko.observableArray([]);
 
+        self.email = ko.observable("");
+        self.validateEmail = ko.pureComputed(function() {
+            if(self.email().length == 0) return false;
+            return self.email().match(
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+              );
+        });
+        
         self.showFormulas = ko.observable(false);
         self.showFormulasText = function () {
             return self.showFormulas() ? "fshih formulat" : "paraqit formulat";
@@ -167,7 +175,16 @@ class Formulas {
             navigator.clipboard.writeText(self.Definitions());
         }
 
+        self.PrepMail = function (encodeduri) {
+            window.location = encodeduri;
+        }
 
+        self.Email = function(){
+            if(self.validateEmail()){
+                const url = `mailto:${self.email()}?subject=${encodeURI('MetaCalculator - përkufizimet e formulave ')}&body=${ self.Definitions() }`;
+                self.PrepMail(url);
+            }
+        }
 
     }
 }
@@ -304,8 +321,6 @@ class MainViewModel {
             self.Formulas.Create(ko.toJS(mainViewModel.Formulas.newFormula()));
             self.view("formulat");
         }
-
-
 
 
     }

@@ -13,7 +13,7 @@
     <div class="h-screen bg-gray-50 p-2">
 
         <div class="w-full my-3 md:w-5/6 lg:w-4/5 xl:w-3/4 2xl:w-2/3  mx-auto p-2 bg-white border border-gray-300">
-            <!-- <dummy class="active"></dummy> -->
+            <!-- <dummy class="active btn-disabled"></dummy> -->
             <ul
                 class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                 <li class="mr-2">
@@ -206,6 +206,12 @@
                 </label>
 
 
+                <button class="btn-small btn-gray" data-bind="click: function() { view('email'); }">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                </button>
+
             </div>
             <div data-bind="foreach: Formulas.formulas()">
 
@@ -255,6 +261,35 @@
                 </div>
 
                 <pre contenteditable data-bind="text: ko.toJSON(Formulas.formulas(), null, 2)" class="form-control p-3"></pre>
+
+            </div>
+
+            <!-- /ko -->
+
+            <!-- ko if: view() == 'email' -->
+            <div class="p-2 mt-2 border rounded-md">
+                <div class="flex justify-between items-center mb-1">
+                    <div class="ml-2 text-xl">Dërgo përkufizimet me email</div>
+                </div>
+                <div class="mt-2">
+                    <div>Adresa e emailit:</div>
+                    <input type="email" data-bind="textInput: Formulas.email" class="form-control">
+                </div>
+                <div class="mt-2">
+                    <button class="btn"
+                        data-bind="click: function(){ Formulas.Email();}, enable: Formulas.validateEmail(), css: (Formulas.validateEmail() ? 'btn-sky' : 'btn-disabled')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                          </svg>
+                    </button>
+                    <button class="btn btn-gray" data-bind="click: function(){ view('formulat'); }">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+
+                </div>
 
             </div>
 
