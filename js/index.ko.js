@@ -57,6 +57,10 @@ class Formulas {
 
         self.newFormula = ko.observable();
 
+        self.Definitions = function(){
+            return ko.toJSON(self.formulas(), null, 2);
+        }
+
         self.Get = function (name) {
             return self.formulas().find(f => f.name === name);
         }
@@ -98,31 +102,37 @@ class Formulas {
 
 
             // Start file download.
-            download(`metacalculator.formulat.${new Date().toISOString().replace(/[\-\:TZ]/gm, '').split('.')[0].substring(2)}.json`, JSON.stringify(self.formulas()));
+            download(`metacalculator.formulat.${new Date().toISOString().replace(/[\-\:TZ]/gm, '').split('.')[0].substring(2)}.json`, self.Definitions());
 
-            self.getFileText = function (file) {
-                var reader = new FileReader();
-                //reader.readAsDataURL(file);
-                //reader.readAsArrayBuffer(file);
-                reader.readAsText(file, "UTF-8");
-                reader.onload = function () {
-                    const json = JSON.parse(reader.result);
-                    parentVM.IO.SaveLocally("formulas", json);
-                    self.loadFromLocalStorage();
-                };
-                reader.onerror = function (error) {
-                    console.log('Error: ', error);
-                };
-            }
+            
 
-            self.fileChanged = function (e) {
-                var files = e.target.files;
-                var file = files[0];
-                self.getFileText(file);
-            }
+            
 
+        }
 
+        self.getFileText = function (file) {
+            var reader = new FileReader();
+            //reader.readAsDataURL(file);
+            //reader.readAsArrayBuffer(file);
+            reader.readAsText(file, "UTF-8");
+            reader.onload = function () {
+                const json = JSON.parse(reader.result);
+                parentVM.IO.SaveLocally("formulas", json);
+                self.loadFromLocalStorage();
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
 
+        self.fileChanged = function (e) {
+            var files = e.target.files;
+            var file = files[0];
+            self.getFileText(file);
+        }
+
+        self.Copy = function () {
+            navigator.clipboard.writeText(self.Definitions());
         }
 
 
