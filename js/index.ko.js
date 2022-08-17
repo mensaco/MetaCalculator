@@ -1,8 +1,92 @@
+class IO {
+    constructor(){
+        var self = this;
+        self.SaveLocally = function(key, value){
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        self.GetLocally = function(key){
+            var json = localStorage.getItem(key);
+            if(json === "undefined") {
+                return null;
+            }
+            return JSON.parse(json);
+        }
+    }
+}
+
+class Formula {
+    constructor(name, value) {
+        this.name = ko.observable(name);
+        this.formula = ko.observable(value);
+    }
+}
+
+class Formulas {
+    constructor(parentVM) {
+        var self = this;
+        self.formulas = ko.observableArray([]);
+
+        self.showFormulas = ko.observable(false);
+        self.showFormulasText = function(){
+            return self.showFormulas() ? "fshih formulat": "paraqit formulat";
+        } 
+
+
+        const fs = parentVM.IO.GetLocally("formulas");
+        if(fs){
+            fs.sort((a,b) => a.name < b.name);
+            self.formulas(fs);
+        }
+
+        self.formula = ko.observable(
+            {
+                "name":"tërheqja gravitacionale",
+                "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
+            }
+        );
+        
+        const last_formula = parentVM.IO.GetLocally("last_formula");
+        if(last_formula){
+            self.formula(last_formula);
+        }
+
+        self.newFormula = ko.observable();
+
+        self.Get = function(name){
+            return self.formulas().find(f => f.name === name);
+        }
+
+        self.Create = function(formula){
+            self.formulas.push(formula);
+            parentVM.IO.SaveLocally("formulas", self.formulas());
+        }
+
+        self.Update = function(formula){
+            var cf = self.Get(formula.name);
+            if(cf){
+                cf.name = formula.name;
+                cf.value = formula.value;
+            }
+            parentVM.IO.SaveLocally("formulas", self.formulas());
+        }
+
+        self.Delete = function(formula) {
+            // var cf = self.Get(formula.name);
+            // if(cf){
+            //     delete self.formulas[formula];
+            // }
+            self.formulas(self.formulas().filter(f => f.name !== formula.name));
+            parentVM.IO.SaveLocally("formulas", self.formulas());
+        }
+
+
+    }
+}
 class Parser {
     constructor(parentVM) {
         var self = this;
 
-        //self.constants = ko.observableArray([]);
         self.variables = ko.observableArray([]);
         self.compactFormula = ko.observable("");
 
@@ -20,34 +104,13 @@ class Parser {
 
         self.parsed = ko.pureComputed(function () {
             self.canCompute(false);
-            var f = parentVM.formula();
+            var f = parentVM.Formulas.formula().formula;
             f = f.replace(/ /g, "");
             const parts = f.split("=");
             if (parts.length == 2) {
                 self.left(parts[0]);
                 f = parts[1];
                 self.right(f);
-
-                // gjeji konstantet me notacion shkencor #.#e[ +-]#.###
-                var regexMatches = f.match(/(\d+\.*\d+e[-+]?\d+)/gm);
-                var uniqueMatches = Array.from(new Set(regexMatches)); // merr vetem unikatet
-                self.cleanUpSpaces(uniqueMatches); // clean up
-                uniqueMatches.forEach((m, i) => { // itero
-                    // krijo konstanten
-                    const c = {
-                        "name": `_c${i}`, "value": ko.observable(m.trim())
-                    };
-                    // // fute ne observableArray
-                    // const foundConstant = self.constants().find(cc => cc.name === c.name);
-                    // if (!foundConstant) {
-                    //     self.constants.push(c);
-                    // }
-                    // else {
-                    //     foundConstant.value(c.value());
-                    // }
-
-
-                });
 
                 // masko funksionet 
                 f = f.replace(/Math\./gm, "_mfunct");
@@ -57,7 +120,7 @@ class Parser {
                 f = " " + f.replace(/([+-\/*\(\)])/gm, " $1 ") + " ";
 
                 // perpuno ndryshoret me njesi (SI)
-                regexMatches = f.match(/\W[a-zA-Z]+_?[a-zA-Z0-9]*(\[.*?\])?\W/gm);
+                const regexMatches = f.match(/\W[a-zA-Z]+_?[a-zA-Z0-9]*(\[.*?\])?\W/gm);
 
                 var uniqueMatches = Array.from(new Set(regexMatches)); // merr vetem unikatet
                 self.cleanUpSpaces(uniqueMatches); // clean up
@@ -84,14 +147,6 @@ class Parser {
                 self.variables(tokeep);
 
                 f = self.right();
-
-                // // zevendeso te gjitha rastet e konstanteve ne formule
-                // self.constants().forEach(c => {
-                //     while (f.includes(c.value())) {
-                //         f = f.replace(c.value(), c.name);
-                //     }
-                // });
-
 
                 // zevendeso te gjitha rastet e ndryshoreve ne formule
                 self.variables().forEach(v => {
@@ -127,7 +182,6 @@ class Parser {
                 var f = self.compactFormula();
                 if (!f) return "";
                 f = f.replace(/_v(\d+)/gm, "self.variables()[$1].value()");
-                //f = f.replace(/_c(\d+)/gm, "self.constants()[$1].value()");
     
                 return eval(f);
             }
@@ -144,25 +198,36 @@ class Parser {
 class MainViewModel {
     constructor() {
         const self = this;
+        
+        self.view = ko.observable("default");
+        self.IO = new IO();
 
-        self.formula = ko.observable("F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])");
+        //self.formula = ko.observable("F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])");
 
+
+        self.Formulas = new Formulas(self);
+        
         self.Parser = new Parser(self);
+        
+        self.addNewFormula = function(){
+            //self.Formulas.newFormula.name("formula e re");
+            //self.Formulas.newFormula.formula(self.Formulas.formula().formula);
+            self.Formulas.newFormula(new Formula("",""));
+            self.view("add")
+        }
 
+        self.saveNewFormula = function(){
+            self.Formulas.Create(ko.toJS(mainViewModel.Formulas.newFormula()));
+            self.view("default");
+        }
 
+        
+        
+        
     }
 }
 
 
 const mainViewModel = new MainViewModel();
-
-ko.bindingHandlers['dhtml'] = {
-    'update': function (element, valueAccessor, allBindings, viewModel, bindingContext) {
-        // setHtml will unwrap the value if needed
-        ko.utils.setHtml(element, valueAccessor());
-        //ko.applyBindingsToDescendants(bindingContext, element);
-    }
-};
-
 
 ko.applyBindings(mainViewModel);
