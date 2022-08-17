@@ -47,7 +47,7 @@ class Formulas {
 
         self.loadFromLocalStorage();
 
-        if(self.formulas() == []) {
+        if(self.formulas().length == 0) {
             self.formulas(
                 [
                     {
