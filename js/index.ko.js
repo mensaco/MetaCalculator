@@ -202,16 +202,12 @@ class MainViewModel {
         self.view = ko.observable("default");
         self.IO = new IO();
 
-        //self.formula = ko.observable("F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])");
-
-
         self.Formulas = new Formulas(self);
         
         self.Parser = new Parser(self);
         
         self.addNewFormula = function(){
-            //self.Formulas.newFormula.name("formula e re");
-            //self.Formulas.newFormula.formula(self.Formulas.formula().formula);
+
             self.Formulas.newFormula(new Formula("",""));
             self.view("add")
         }

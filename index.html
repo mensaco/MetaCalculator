@@ -73,20 +73,20 @@
             <!-- ko if: view() == "add" -->
 
             <div>
-                <div class="my-2 p-2 bg-sky-300 rounded-md">
+                <div class="my-2 p-2 bg-amber-100 border border-amber-300 rounded-md">
                     <div class="mb-1 text-xl">Shto në listën e formulave</div>
-                    <div>
+                    <div class="my-3">
                         <div>Emri i formulës</div>
                         <input type="text" data-bind="value: Formulas.newFormula().name" class="form-control" />
                     </div>
-                    <div>
+                    <div class="my-3">
                         <div>formula</div>
                         <textarea type="text" data-bind="value: Formulas.newFormula().formula"
                             class="form-control"></textarea>
                     </div>
                     <div class="mt-2">
-                        <button class="btn btn-green" data-bind="click: saveNewFormula">shto</button>
-                        <button class="btn btn-gray" data-bind="click: function(){ view('default'); }">ik prapa</button>
+                        <button class="btn btn-amber" data-bind="click: saveNewFormula">shto</button>
+                        <button class="btn btn-gray" data-bind="click: function(){ view('formulat'); }">ik prapa</button>
 
                     </div>
                 </div>
@@ -98,13 +98,13 @@
             <!-- ko if: view() == "edit" -->
 
             <div>
-                <div class="my-2 p-2 bg-sky-300 rounded-md">
+                <div class="my-2 p-2 bg-green-100 border border-green-300 rounded-md">
                     <div class="mb-1 text-xl">Redakto formulën</div>
-                    <div>
+                    <div class="my-3">
                         <div>Emri i formulës</div>
                         <input type="text" data-bind="value: Formulas.formula().name" class="form-control" />
                     </div>
-                    <div>
+                    <div class="my-3">
                         <div>formula</div>
                         <textarea type="text" data-bind="value: Formulas.formula().formula"
                             class="form-control"></textarea>
@@ -135,14 +135,14 @@
             <!-- ko if: view() == "delete" -->
 
             <div>
-                <div class="my-2 p-2 rounded-md">
+                <div class="my-2 p-2 bg-red-100 border border-red-300 rounded-md">
                     <div class="mb-1 text-xl">Fshij formulën</div>
                     <div class="text-yellow-300 font-bold bg-red-700 px-3 py-1 border border-yellow-500 p-1 rounded-md" >Kujdes! Fshierja është e pazhbëshme... </div>
-                    <div>
+                    <div class="my-3">
                         <div>Emri i formulës</div>
                         <input type="text" data-bind="value: Formulas.formula().name" class="form-control" />
                     </div>
-                    <div>
+                    <div class="my-3">
                         <div>formula</div>
                         <textarea type="text" data-bind="value: Formulas.formula().formula"
                             class="form-control"></textarea>
