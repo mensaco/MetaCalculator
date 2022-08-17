@@ -214,7 +214,7 @@ class MainViewModel {
 
         self.saveNewFormula = function(){
             self.Formulas.Create(ko.toJS(mainViewModel.Formulas.newFormula()));
-            self.view("default");
+            self.view("formulat");
         }
 
         
