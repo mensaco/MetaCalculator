@@ -41,7 +41,39 @@ class Formulas {
             }
         }
 
+        self.saveToLocalStorage = function(){
+            parentVM.IO.SaveLocally("formulas", self.formulas());
+        }
+
         self.loadFromLocalStorage();
+
+        if(self.formulas() == []) {
+            self.formulas(
+                [
+                    {
+                      "name": "Çmimi i rrymës 2022",
+                      "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
+                    },
+                    {
+                      "name": "tërheqja gravitacionale",
+                      "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
+                    },
+                    {
+                      "name": "Energjia potenciale",
+                      "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
+                    },
+                    {
+                      "name": "E = mc²",
+                      "formula": "E[J] = m[kg] * 9e16"
+                    },
+                    {
+                      "name": "Ligji i Ohm-it",
+                      "formula": "I[A] = U[V] / R[Ohm]"
+                    }
+                  ]
+            );
+            self.saveToLocalStorage();
+        }
 
         self.formula = ko.observable(
             {
@@ -67,7 +99,7 @@ class Formulas {
 
         self.Create = function (formula) {
             self.formulas.push(formula);
-            parentVM.IO.SaveLocally("formulas", self.formulas());
+            self.saveToLocalStorage();
         }
 
         self.Update = function (formula) {
@@ -76,12 +108,12 @@ class Formulas {
                 cf.name = formula.name;
                 cf.value = formula.value;
             }
-            parentVM.IO.SaveLocally("formulas", self.formulas());
+            self.saveToLocalStorage();
         }
 
         self.Delete = function (formula) {
             self.formulas(self.formulas().filter(f => f.name !== formula.name));
-            parentVM.IO.SaveLocally("formulas", self.formulas());
+            self.saveToLocalStorage();
         }
 
         self.Download = function () {
