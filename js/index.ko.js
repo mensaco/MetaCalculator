@@ -215,7 +215,7 @@ class Formulas {
                 ra = self.formulas();
             }
             else {
-                ra =  self.formulas().filter(f => f.name.includes(self.search()));
+                ra =  self.formulas().filter(f => f.name.toLowerCase().includes(self.search().toLowerCase()));
             }
 
             ra.sort(self.compareByName);
