@@ -33,6 +33,11 @@
                         class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                         data-bind="click: function(){ view('formulat'); }, css: (view() == 'formulat' ? 'active' : '')">Formulat</a>
                 </li>
+                <li class="mr-2">
+                    <a href="#"
+                        class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+                        data-bind="click: function(){ view('ndihme'); }, css: (view() == 'ndihme' ? 'active' : '')">Ndihmë</a>
+                </li>
 
             </ul>
 
@@ -316,6 +321,27 @@
                 </div>
 
                 <!-- /ko -->
+
+
+                 <!-- ko if: view() == 'ndihme' -->
+                 <div class="p-2 mt-2 border rounded-md">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="ml-2 text-xl">Ndihmë</div>
+                    </div>
+
+                    <div class="mt-2 text-xl">
+                        <div>Meta Calculator</div>                        
+                    </div>
+
+                    <div class="mt-2">
+                        është një llogaritës i programueshëm. Për të funksionuar i duhet së paku një formulë me një apo më shumë ndryshore. Formulat mund t'i shtoni, hiqni apo ndryshoni sipas nevojës. Lista e këtyre formulave ruhet në kujtesën lokale të browserit tuaj. Këtë listë mund ta thirrni duke klikuar në menynë kryesore butonin "Formulat".
+                    </div>
+
+                </div>
+
+                <!-- /ko -->
+
+
 
             </div>
         </div>
