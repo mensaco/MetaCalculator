@@ -27,16 +27,17 @@ class Formulas {
         var self = this;
         self.formulas = ko.observableArray([]);
 
+        self.formula = ko.observable("");
         self.email = ko.observable("");
         self.search = ko.observable("");
 
-        self.validateEmail = ko.pureComputed(function() {
-            if(self.email().length == 0) return false;
+        self.validateEmail = ko.pureComputed(function () {
+            if (self.email().length == 0) return false;
             return self.email().match(
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
         });
-        
+
         self.showFormulas = ko.observable(false);
         self.showFormulasText = function () {
             return self.showFormulas() ? "fshih formulat" : "paraqit formulat";
@@ -51,56 +52,63 @@ class Formulas {
             }
         }
 
-        self.saveToLocalStorage = function(){
+        self.saveToLocalStorage = function () {
             parentVM.IO.SaveLocally("formulas", self.formulas());
         }
 
         self.loadFromLocalStorage();
 
-        if(self.formulas().length == 0) {
+        if (self.formulas().length == 0) {
             self.formulas(
                 [
                     {
-                      "name": "Çmimi i rrymës 2022",
-                      "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
+                        "name": "Çmimi i rrymës 2022",
+                        "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
                     },
                     {
-                      "name": "tërheqja gravitacionale",
-                      "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
+                        "name": "tërheqja gravitacionale",
+                        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
                     },
                     {
-                      "name": "Energjia potenciale",
-                      "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
+                        "name": "Energjia potenciale",
+                        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
                     },
                     {
-                      "name": "E = mc²",
-                      "formula": "E[J] = m[kg] * 9e16"
+                        "name": "E = mc²",
+                        "formula": "E[J] = m[kg] * 9e16"
                     },
                     {
-                      "name": "Ligji i Ohm-it",
-                      "formula": "I[A] = U[V] / R[Ohm]"
+                        "name": "Ligji i Ohm-it",
+                        "formula": "I[A] = U[V] / R[Ohm]"
                     }
-                  ]
+                ]
             );
             self.saveToLocalStorage();
+
         }
 
-        self.formula = ko.observable(
-            {
-                "name": "tërheqja gravitacionale",
-                "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
-            }
-        );
+
 
         const last_formula = parentVM.IO.GetLocally("last_formula");
         if (last_formula) {
             self.formula(last_formula);
         }
+        else {
+            self.formula = ko.observable(
+                self.formulas()[0]
+            );
+        }
 
         self.newFormula = ko.observable();
 
-        self.Definitions = function(){
+        self.Definitions = function () {
             return ko.toJSON(self.formulas(), null, 2);
+        }
+
+        self.Select = function(cf){
+            self.formula(cf);
+            parentVM.IO.SaveLocally("last_formula", self.formula());
+            parentVM.view("default");
         }
 
         self.Get = function (name) {
@@ -146,9 +154,9 @@ class Formulas {
             // Start file download.
             download(`metacalculator.formulat.${new Date().toISOString().replace(/[\-\:TZ]/gm, '').split('.')[0].substring(2)}.json`, self.Definitions());
 
-            
 
-            
+
+
 
         }
 
@@ -181,21 +189,21 @@ class Formulas {
             window.location = encodeduri;
         }
 
-        self.Email = function(){
-            if(self.validateEmail()){
-                const url = `mailto:${self.email()}?subject=${encodeURI('MetaCalculator - përkufizimet e formulave ')}&body=${ self.Definitions() }`;
+        self.Email = function () {
+            if (self.validateEmail()) {
+                const url = `mailto:${self.email()}?subject=${encodeURI('MetaCalculator - përkufizimet e formulave ')}&body=${self.Definitions()}`;
                 self.PrepMail(url);
             }
         }
 
-        self.filtered = ko.pureComputed(function() {
-            if(self.search() == ""){
+        self.filtered = ko.pureComputed(function () {
+            if (self.search() == "") {
                 return self.formulas();
             }
 
             return self.formulas().filter(f => f.name.includes(self.search()));
         }
-            
+
         );
 
     }
@@ -221,6 +229,7 @@ class Parser {
 
         self.parsed = ko.pureComputed(function () {
             self.canCompute(false);
+
             var f = parentVM.Formulas.formula().formula;
             f = f.replace(/ /g, "");
             const parts = f.split("=");
@@ -287,6 +296,11 @@ class Parser {
             }
             else {
                 //todo: alert user about the wrong format of the equation
+                self.variables([]);
+                self.compactFormula("");
+                self.left("");
+                self.right("");
+
                 return self;
             }
 
@@ -300,7 +314,13 @@ class Parser {
                 if (!f) return "";
                 f = f.replace(/_v(\d+)/gm, "self.variables()[$1].value()");
 
-                return eval(f);
+                try{
+                    return eval(f);
+                }
+                catch(e){
+                    return "";
+                }
+                
             }
             else {
                 return "";
