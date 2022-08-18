@@ -277,11 +277,11 @@ class Parser {
                 // zevendeso te gjitha rastet e ndryshoreve ne formule
                 self.variables().forEach(v => {
                     while (f.includes(v.label())) {
-                        f = f.replace(v.label(), v.name);
+                        f = f.replace(v.label(), `${v.name} * 1`);
                     }
                 });
 
-                // demasko funksionet
+                // demasko funksionet matematikore
                 f = f.replace(/_mfunct/gm, "Math.");
 
                 // ruaje formulen kompakte
