@@ -28,11 +28,13 @@ class Formulas {
         self.formulas = ko.observableArray([]);
 
         self.email = ko.observable("");
+        self.search = ko.observable("");
+
         self.validateEmail = ko.pureComputed(function() {
             if(self.email().length == 0) return false;
             return self.email().match(
                 /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-              );
+            );
         });
         
         self.showFormulas = ko.observable(false);
@@ -185,6 +187,16 @@ class Formulas {
                 self.PrepMail(url);
             }
         }
+
+        self.filtered = ko.pureComputed(function() {
+            if(self.search() == ""){
+                return self.formulas();
+            }
+
+            return self.formulas().filter(f => f.name.includes(self.search()));
+        }
+            
+        );
 
     }
 }
