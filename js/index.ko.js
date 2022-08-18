@@ -31,6 +31,17 @@ class Formulas {
         self.email = ko.observable("");
         self.search = ko.observable("");
 
+        self.compareByName = function (a, b) {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return -1;
+            }
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return 1;
+            }
+            // a must be equal to b
+            return 0;
+          }          
+
         self.validateEmail = ko.pureComputed(function () {
             if (self.email().length == 0) return false;
             return self.email().match(
@@ -47,7 +58,7 @@ class Formulas {
         self.loadFromLocalStorage = function () {
             const fs = parentVM.IO.GetLocally("formulas");
             if (fs) {
-                fs.sort((a, b) => a.name < b.name);
+                fs.sort(self.compareByName);
                 self.formulas(fs);
             }
         }
@@ -197,11 +208,18 @@ class Formulas {
         }
 
         self.filtered = ko.pureComputed(function () {
+
+            var ra;
+
             if (self.search() == "") {
-                return self.formulas();
+                ra = self.formulas();
+            }
+            else {
+                ra =  self.formulas().filter(f => f.name.includes(self.search()));
             }
 
-            return self.formulas().filter(f => f.name.includes(self.search()));
+            ra.sort(self.compareByName);
+            return ra;
         }
 
         );
