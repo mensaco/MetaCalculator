@@ -29,19 +29,19 @@
                 </li>
 
                 <li class="mr-2">
-                    <a href="#"
+                    <a href="#"  aria-current="page"
                         class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                         data-bind="click: function(){ view('formulat'); }, css: (view() == 'formulat' ? 'active' : '')">Formulat</a>
                 </li>
                 <li class="mr-2">
-                    <a href="#"
+                    <a href="#"  aria-current="page"
                         class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                         data-bind="click: function(){ view('ndihme'); }, css: (view() == 'ndihme' ? 'active' : '')">Ndihmë</a>
                 </li>
 
             </ul>
 
-            <div class="text-amber-900">
+            <div class="text-amber-900 main">
 
                 <!-- ko if: view() == "default" -->
 
@@ -335,8 +335,9 @@
                     </div>
 
                     <div class="my-3">
-                        është një llogaritës i programueshëm. Për të funksionuar i duhet së paku një formulë me një apo
-                        më shumë ndryshore. 
+                        është një llogaritës i programueshëm. Për të funksionuar i duhet së paku një <a
+                            href="#formulat">formulë</a> me një apo
+                        më shumë <a href="#ndryshoret">ndryshore</a>.
                     </div>
 
                     <div class="text-xl my-3">Llogaritësi</div>
@@ -346,163 +347,185 @@
                         vlerat hyrëse të llogaritjes. Në fund të faqes, nëse formula është e kuptueshme për kodin,
                         paraqitet rezultati i llogaritjes.
                     </div>
-                    <img src="/img/llogaritesi.png" class="framed" />
-                </div>
+                    <div class="my-3 bg-gray-200 p-3">
+                        <img src="/img/llogaritesi.png" class="framed" />
+                    </div>
 
-                <div class="text-xl my-3">Formulat</div>
-                <div class="my-3">
-                    Formulat mund t'i shtoni, hiqni apo ndryshoni sipas nevojës. Lista e këtyre
-                    formulave ruhet në kujtesën lokale të browserit tuaj. Këtë listë mund ta thirrni duke klikuar në
-                    menynë kryesore butonin "Formulat".
-                </div>
 
-                <div class="my-3">
-                    <img src="/img/formulat.png" class="framed" />
-                </div>
 
-                <div class="my-3">
-                    Pas klikimit, hapet faqja me listën e formulave, ngjashëm me foton më poshtë:
-                </div>
-
-                <div class="my-3">
-                    <img src="/img/formulat_lista.png" class="framed" />
-                </div>
-                <hr class="my-5">
-
-                <div class="text-xl my-3">Menyja e formulave</div>
-                <div class="my-3">
-                    Në krye të faqes janë butonat vijues:
-                    <ul>
-                        <li class="p-1">- plus i bardhë mbi prapavi ngjyrë portokalli - klikojeni për ta shtuar një
-                            formulë të re. Shih sqarimin mbi <a class="text-amber-700 font-bold"
-                                href="#formatimi">formatin e formulave</a>.
-                        </li>
-                        <li class="p-1">
-                            - libër i bardhë mbi prapavi ngjyrë hiri - klikojeni për t'i paraqitur përkufizimet (në
-                            formë të JSON) e të gjitha formulave të ruajtura.
-                        </li>
-                        <li class="p-1">
-                            - kuti me shigjetë hyrëse nga e djathta - klikojeni për t'i kopjuar përkufizimet e
-                            formulave në klipbord.
-                        </li>
-                        <li class="p-1">
-                            - kuti me shigjetë hyrëse nga lart - klikojeni për t'i shkarkuar përkufizimet aktuale të
-                            formulave në formë të një fajli me emrin "metacalculator.formulat.vvMMddOOmmss.json".
-                            Këtë fajl mund ta ngarkoni më vonë përmes butonit vijues.
-                        </li>
-                        <li class="p-1">
-                            - "enë" me shigjetë dalëse përpjetë (termá ;) ) - klikojeni për ta ngarkuar një fajl të
-                            përkufizimeve të përshkruar më lart.
-                        </li>
-                        <li class="p-1">
-                            - zarf i bardhë në prapavi të hirtë - klikojeni për ta sajuar një email me përkufizimet
-                            aktuale të formulave.
-                        </li>
-                    </ul>
-
+                    <a name="formulat"></a>
+                    <div class="text-xl my-3">Formulat</div>
                     <div class="my-3">
-                        Për të funksionuar dërgimi i përkufizimeve me email, duhen plotësuar dy parakushte: ta keni
-                        të instaluar një klient të emailave në kompjuterin tuaj dhe të shkruani adresën tuaj valide
-                        të
-                        emailit në kutinë përkatëse (shih më poshtë). Me këtë rast, adresa juaj e e mailit nuk e lë
-                        kompjuterin tuaj.
+                        Formulat mund t'i shtoni, hiqni apo ndryshoni sipas nevojës. Lista e këtyre
+                        formulave ruhet në kujtesën lokale të browserit tuaj. Këtë listë mund ta thirrni duke klikuar në
+                        menynë kryesore butonin "Formulat".
+                    </div>
+
+                    <div class="my-3 bg-gray-200 p-3">
+                        <img src="/img/formulat.png" class="framed" />
                     </div>
 
                     <div class="my-3">
-                        <img src="/img/email.png" class="framed" />
+                        Pas klikimit, hapet faqja me listën e formulave, ngjashëm me foton më poshtë:
                     </div>
-                </div>
 
-                <hr class="my-5">
-                <div class="text-xl my-3">Kërkimi/filtrimi i formulave</div>
-                <div class="my-3">
-                    Formulat e ruajtura mund t'i filtroni sipas emrit. Mjafton që teksti i shkruar të jetë pjesë e
-                    emrit të formulës.
-                </div>
-                <div class="my-3">
-                    <img src="/img/filtrimi.png" class="framed" />
-                </div>
+                    <div class="my-3 bg-gray-200 p-3">
+                        <img src="/img/formulat_lista.png" class="framed" />
+                    </div>
+                    <hr class="my-5">
 
-                <hr class="my-5">
-                <div class="text-xl my-3">zgjedhja dhe redaktimi i formulave</div>
-                <div class="my-3">
-                    Përfundi çdo formule nga lista, janë tre butona për zgjedhjen dhe redaktimin e formulave:
-                </div>
-                <div class="my-3">
-                    <img src="/img/zgjedhjeredaktim.png" class="framed" />
-                </div>
-                <div class="my-3">
-                    <ul>
-                        <li class="p-1">
-                            - butoni i parë, me llogaritës të bardhë mbi prapavi të kaltër ju mundëson ta zgjedhni
-                            formulën përkatëse. Pas klikimit, automatikisht paraqitet llogaritësi me kutitë përkatëse,
-                            në të cilat mund t'i shkruani vlerat e duhura hyrëse.
-                        </li>
-                        <li class="p-1">
-                            - butoni i dytë, me laps të bardhë mbi prapavi të gjelbër ju mundëson ta redaktoni formulën
-                            përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
-                        </li>
-                        <li class="p-1">
-                            - butoni i tretë, me kovë të bardhë mbi prapavi të kuqe ju mundëson ta fshini formulën
-                            përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
-                        </li>
-                    </ul>
-                </div>
-
-
-
-                <hr class="my-5">
-                <a name="formatimi"></a>
-                <div class="text-xl my-3">Formatimi i formulave</div>
-                <div class="my-3">
-                    Formulat e lejuara mund të përmbajnë vlera të pandryshueshme (konstante), ndryshore me apo pa njësi
-                    matëse, operacionet bazë +, -, * e /, si dhe operacione e konstante nga hapësira "Math" e
-                    javascript-it.
-                    <br>
-                    Si shembull, në imazhin më poshtë,
+                    <div class="text-xl my-3">Menyja e formulave</div>
                     <div class="my-3">
-                        <img src="/img/format.png" class="framed" />
+                        Në krye të faqes janë butonat vijues:
+                        <ul>
+                            <li class="p-1">- plus i bardhë mbi prapavi ngjyrë portokalli - klikojeni për ta shtuar një
+                                formulë të re. Shih sqarimin mbi <a href="#formatimi">formatin e formulave</a>.
+                            </li>
+                            <li class="p-1">
+                                - libër i bardhë mbi prapavi ngjyrë hiri - klikojeni për t'i paraqitur përkufizimet (në
+                                formë të JSON) e të gjitha formulave të ruajtura.
+                            </li>
+                            <li class="p-1">
+                                - kuti me shigjetë hyrëse nga e djathta - klikojeni për t'i kopjuar përkufizimet e
+                                formulave në klipbord.
+                            </li>
+                            <li class="p-1">
+                                - kuti me shigjetë hyrëse nga lart - klikojeni për t'i shkarkuar përkufizimet aktuale të
+                                formulave në formë të një fajli me emrin "metacalculator.formulat.vvMMddOOmmss.json".
+                                Këtë fajl mund ta ngarkoni më vonë përmes butonit vijues.
+                            </li>
+                            <li class="p-1">
+                                - "enë" me shigjetë dalëse përpjetë (termá ;) ) - klikojeni për ta ngarkuar një fajl të
+                                përkufizimeve të përshkruar më lart.
+                            </li>
+                            <li class="p-1">
+                                - zarf i bardhë në prapavi të hirtë - klikojeni për ta sajuar një email me përkufizimet
+                                aktuale të formulave.
+                            </li>
+                        </ul>
+
+                        <div class="my-3">
+                            Për të funksionuar dërgimi i përkufizimeve me email, duhen plotësuar dy parakushte: ta keni
+                            të instaluar një klient të emailave në kompjuterin tuaj dhe të shkruani adresën tuaj valide
+                            të
+                            emailit në kutinë përkatëse (shih më poshtë). Me këtë rast, adresa juaj e e mailit nuk e lë
+                            kompjuterin tuaj.
+                        </div>
+
+                        <div class="my-3 bg-gray-200 p-3">
+                            <img src="/img/email.png" class="framed" />
+                        </div>
                     </div>
-                    <ul>
-                        <li class="p-1">
-                            - F[N], nënvizuar me të kuqe, tregon madhësinë që duhet llogaritur - në rastin konkret
-                            forcën tërheqëse të shprehur në njësinë Njutën [N]
-                        </li>
-                        <li class="p-1">
-                            - 6.67259e-11 dhe 2, të nënvizuar me të portokalltë, janë vlera konstante. Lejohet formati
-                            normal dhe ai shkencor i numrave konstantë. Konstantet nuk marrin njësi matëse.
-                        </li>
-                        <li class="p-1">
-                            - m1[kg], m2[kg] dhe d[m], të nënvizuar me të kaltër, janë ndryshore. Këto mund të marrin
-                            njësi matëse, si në rastin konkret, apo mund të shkruhen edhe pa to. Ndryshoret duhet të
-                            fillojnë me një nga shkronjat e alfabetit latin. Në vijim mund të kenë shifra apo shkronja
-                            tjera nga alfabeti i cekur. Njësia matëse, nëse përdoret, gjithëmonë vihet brenda kllapave
-                            këndore. Emrat (dhe njësitë) e ndryshoreve do të paraqiten si etiketa para fushave përkatëse
-                            në faqen "llogaritësi".
-                        </li>
-                        <li class="p-1">
-                            - Math.pow(..., 2), nënvizuar me ngjyrë kafeje, është një funksion nga lëmi i funksioneve të
-                            brendëshme të javascript-it. Në teori do të duhej të funksionojnë të gjitha funksionet e
-                            përshkruara <a href="https://mathjs.org/docs/reference/functions.html"
-                                class="text-amber-500 font-bold" target="_blank">këtu</a>, por deri tani nuk i kemi
-                            testuar ata.
-                        </li>
-                    </ul>
+
+                    <hr class="my-5">
+                    <div class="text-xl my-3">Kërkimi/filtrimi i formulave</div>
+                    <div class="my-3">
+                        Formulat e ruajtura mund t'i filtroni sipas emrit. Mjafton që teksti i shkruar të jetë pjesë e
+                        emrit të formulës.
+                    </div>
+                    <div class="my-3 bg-gray-200 p-3">
+                        <img src="/img/filtrimi.png" class="framed" />
+                    </div>
+
+                    <hr class="my-5">
+                    <div class="text-xl my-3">zgjedhja dhe redaktimi i formulave</div>
+                    <div class="my-3">
+                        Përfundi çdo formule nga lista, janë tre butona për zgjedhjen dhe redaktimin e formulave:
+                    </div>
+                    <div class="my-3 bg-gray-200 p-3">
+                        <img src="/img/zgjedhjeredaktim.png" class="framed" />
+                    </div>
+                    <div class="my-3">
+                        <ul>
+                            <li class="p-1">
+                                - butoni i parë, me llogaritës të bardhë mbi prapavi të kaltër ju mundëson ta zgjedhni
+                                formulën përkatëse. Pas klikimit, automatikisht paraqitet llogaritësi me kutitë
+                                përkatëse,
+                                në të cilat mund t'i shkruani vlerat e duhura hyrëse.
+                            </li>
+                            <li class="p-1">
+                                - butoni i dytë, me laps të bardhë mbi prapavi të gjelbër ju mundëson ta redaktoni
+                                formulën
+                                përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
+                            </li>
+                            <li class="p-1">
+                                - butoni i tretë, me kovë të bardhë mbi prapavi të kuqe ju mundëson ta fshini formulën
+                                përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+                    <hr class="my-5">
+                    <a name="formatimi"></a>
+                    <div class="text-xl my-3">Formati i formulave</div>
+                    <div class="my-3">
+                        Formulat e lejuara mund të përmbajnë vlera të pandryshueshme (konstante), ndryshore me apo pa
+                        njësi
+                        matëse, operacionet bazë +, -, * e /, si dhe operacione e konstante nga hapësira "Math" e
+                        javascript-it.
+                        <br>
+                        Si shembull, në imazhin më poshtë,
+                        <div class="my-3 bg-gray-200 p-3">
+                            <img src="/img/format.png" class="framed" />
+                        </div>
+                        <ul>
+                            <li class="p-1">
+                                - F[N], nënvizuar me të kuqe, tregon madhësinë që duhet llogaritur - në rastin konkret
+                                forcën tërheqëse të shprehur në njësinë Njutën [N]
+                            </li>
+                            <li class="p-1">
+                                - 6.67259e-11 dhe 2, të nënvizuar me të portokalltë, janë vlera <span
+                                    class="text-amber-700 font-bold">konstante</span>. Lejohet
+                                formati
+                                normal dhe ai shkencor i numrave konstantë. Konstantet nuk marrin njësi matëse.
+                            </li>
+                            <li class="p-1">
+                                <a name="ndryshoret"></a>
+                                - m1[kg], m2[kg] dhe d[m], të nënvizuar me të kaltër, janë <span
+                                    class="text-blue-700 font-bold">ndryshore</span>. Këto mund të
+                                marrin
+                                njësi matëse, si në rastin konkret, apo mund të shkruhen edhe pa to. Ndryshoret duhet të
+                                fillojnë me një nga shkronjat e alfabetit latin. Në vijim mund të kenë shifra apo
+                                shkronja
+                                tjera nga alfabeti i cekur. Njësia matëse, nëse përdoret, gjithëmonë vihet brenda
+                                kllapave
+                                këndore. Emrat (dhe njësitë) e ndryshoreve do të paraqiten si etiketa para fushave
+                                përkatëse
+                                në faqen "llogaritësi".
+                            </li>
+                            <li class="p-1">
+                                - Math.pow(..., 2), nënvizuar me ngjyrë kafeje, është një <span
+                                    class="text-amber-900 font-bold">funksion</span> nga lëmi i
+                                funksioneve të brendëshme të javascript-it. Në teori do të duhej të funksionojnë të
+                                gjitha funksionet e
+                                përshkruara <a href="https://mathjs.org/docs/reference/functions.html"
+                                    target="_blank">këtu</a>, por deri tani nuk i kemi
+                                testuar ata.
+                            </li>
+                        </ul>
+
+                        <div class="my-5">&nbsp;</div>
+                        <div class="my-5">&nbsp;</div>
+                        <div class="my-5">&nbsp;</div>
+                        <div class="my-5">&nbsp;</div>
+                        <div class="my-5">&nbsp;</div>
+
+                    </div>
+
+
 
                 </div>
+
+                <!-- /ko -->
 
 
 
             </div>
-
-            <!-- /ko -->
-
-
-
         </div>
-    </div>
-    <script src="/js/knockout-3.5.1.js"></script>
-    <script src="/js/index.ko.js"></script>
+        <script src="/js/knockout-3.5.1.js"></script>
+        <script src="/js/index.ko.js"></script>
 </body>
 
 </html>
