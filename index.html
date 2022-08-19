@@ -29,12 +29,12 @@
                 </li>
 
                 <li class="mr-2">
-                    <a href="#"  aria-current="page"
+                    <a href="#" aria-current="page"
                         class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                         data-bind="click: function(){ view('formulat'); }, css: (view() == 'formulat' ? 'active' : '')">Formulat</a>
                 </li>
                 <li class="mr-2">
-                    <a href="#"  aria-current="page"
+                    <a href="#" aria-current="page"
                         class="inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                         data-bind="click: function(){ view('ndihme'); }, css: (view() == 'ndihme' ? 'active' : '')">Ndihmë</a>
                 </li>
@@ -46,28 +46,38 @@
                 <!-- ko if: view() == "default" -->
 
 
-
+                <div class="mt-5">formula aktuale:</div>
                 <div class="my-2 p-2 bg-sky-100 rounded-md">
                     <div class="mb-1 text-xl" data-bind="text: Formulas.formula().name"></div>
                     <div><input data-bind="value: Formulas.formula().formula" class="form-control"></div>
                 </div>
 
-                <div class="mt-5">të dhënat hyrëse:</div>
+                <div class="md:flex justify-between items-top gap-x-3">
+                    <div class="flex-1">
+                        <div class="mt-5">të dhënat hyrëse:</div>
 
-                <div data-bind="foreach: Parser.variables()">
-                    <div class="my-2 p-2 bg-green-100 rounded-md">
-                        <div class="mb-1 text-xl" data-bind="text: label()"></div>
-                        <input type="text" data-bind="value: value" class="form-control">
+                        <div data-bind="foreach: Parser.variables()">
+                            <div class="my-2 p-2 bg-green-100 rounded-md">
+                                <div class="mb-1 text-xl" data-bind="text: label()"></div>
+                                <input type="text" data-bind="value: value" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div class="mt-5">vlera e llogaritur:</div>
+                        <div>
+                            <div class="my-2 p-2 bg-amber-100 rounded-md">
+                                <div class="mb-1 text-xl" data-bind="text: Parser.left()"></div>
+                                <div data-bind="text: Parser.computed()" class="form-control"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mt-5">vlera e llogaritur:</div>
-                <div>
-                    <div class="my-2 p-2 bg-amber-100 rounded-md">
-                        <div class="mb-1 text-xl" data-bind="text: Parser.left()"></div>
-                        <div data-bind="text: Parser.computed()" class="form-control"></div>
-                    </div>
-                </div>
+
+
+
 
                 <span data-bind="text: Parser.parsed().empty()"></span>
                 <!-- /ko -->
