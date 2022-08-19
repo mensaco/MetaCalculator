@@ -1,3 +1,30 @@
+async function GetFormulatOnline() {
+    const response = await fetch("/json/formulat.json");
+    return await response.json();
+}
+
+var formulatJson = [
+    {
+        "name": "Çmimi i rrymës 2022",
+        "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
+    },
+    {
+        "name": "tërheqja gravitacionale",
+        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
+    },
+    {
+        "name": "Energjia potenciale",
+        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
+    },
+    {
+        "name": "E = mc²",
+        "formula": "E[J] = m[kg] * 9e16"
+    },
+    {
+        "name": "Ligji i Ohm-it",
+        "formula": "I[A] = U[V] / R[Ohm]"
+    }
+];
 class IO {
     constructor() {
         var self = this;
@@ -33,14 +60,14 @@ class Formulas {
 
         self.compareByName = function (a, b) {
             if (a.name.toLowerCase() < b.name.toLowerCase()) {
-              return -1;
+                return -1;
             }
             if (a.name.toLowerCase() > b.name.toLowerCase()) {
-              return 1;
+                return 1;
             }
             // a must be equal to b
             return 0;
-          }          
+        }
 
         self.validateEmail = ko.pureComputed(function () {
             if (self.email().length == 0) return false;
@@ -69,33 +96,11 @@ class Formulas {
 
         self.loadFromLocalStorage();
 
-        if (self.formulas().length == 0) {
-            self.formulas(
-                [
-                    {
-                        "name": "Çmimi i rrymës 2022",
-                        "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
-                    },
-                    {
-                        "name": "tërheqja gravitacionale",
-                        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
-                    },
-                    {
-                        "name": "Energjia potenciale",
-                        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
-                    },
-                    {
-                        "name": "E = mc²",
-                        "formula": "E[J] = m[kg] * 9e16"
-                    },
-                    {
-                        "name": "Ligji i Ohm-it",
-                        "formula": "I[A] = U[V] / R[Ohm]"
-                    }
-                ]
-            );
-            self.saveToLocalStorage();
 
+
+        if (self.formulas().length == 0) { //nëse ka krisur kiameti
+            self.formulas(formulatJson);
+            self.saveToLocalStorage();
         }
 
 
@@ -116,7 +121,7 @@ class Formulas {
             return ko.toJSON(self.formulas(), null, 2);
         }
 
-        self.Select = function(cf){
+        self.Select = function (cf) {
             self.formula(cf);
             parentVM.IO.SaveLocally("last_formula", self.formula());
             parentVM.view("default");
@@ -160,15 +165,16 @@ class Formulas {
                 document.body.removeChild(element);
             }
 
-
-
             // Start file download.
             download(`metacalculator.formulat.${new Date().toISOString().replace(/[\-\:TZ]/gm, '').split('.')[0].substring(2)}.json`, self.Definitions());
 
+        }
 
-
-
-
+        self.GetFormulatOnline = async function(){
+            const formulatOnline = await GetFormulatOnline();
+            formulatOnline.forEach(f => {
+                self.formulas.push(f);
+            });
         }
 
         self.getFileText = function (file) {
@@ -215,7 +221,7 @@ class Formulas {
                 ra = self.formulas();
             }
             else {
-                ra =  self.formulas().filter(f => f.name.toLowerCase().includes(self.search().toLowerCase()));
+                ra = self.formulas().filter(f => f.name.toLowerCase().includes(self.search().toLowerCase()));
             }
 
             ra.sort(self.compareByName);
@@ -332,13 +338,13 @@ class Parser {
                 if (!f) return "";
                 f = f.replace(/_v(\d+)/gm, "self.variables()[$1].value()");
 
-                try{
+                try {
                     return eval(f);
                 }
-                catch(e){
+                catch (e) {
                     return "";
                 }
-                
+
             }
             else {
                 return "";
@@ -375,6 +381,8 @@ class MainViewModel {
 
     }
 }
+
+
 
 
 const mainViewModel = new MainViewModel();
