@@ -13,7 +13,7 @@
     },
     {
         "name": "Energjia potenciale",
-        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
+        "formula": "E[J] = 9.81 * m[kg] * h[m]"
     },
     {
         "name": "Tërheqja gravitacionale",
