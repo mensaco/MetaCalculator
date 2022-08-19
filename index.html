@@ -57,7 +57,7 @@
                         <div class="mt-5">të dhënat hyrëse:</div>
 
                         <div data-bind="foreach: Parser.variables()">
-                            <div class="my-2 p-2 bg-green-100 rounded-md">
+                            <div class="my-5 p-2 bg-green-100 rounded-md">
                                 <div class="mb-1 text-xl" data-bind="text: label()"></div>
                                 <input type="text" data-bind="value: value" class="form-control">
                             </div>
@@ -191,7 +191,7 @@
 
 
                     <div class="p-2 mt-2 border rounded-md ">
-                        <div class="flex flex-wrap justify-start items-center gap-x-3">
+                        <div class="flex flex-wrap justify-start items-center gap-x-3 gap-y-3">
 
                             <button class="btn-small btn-amber" data-bind="click: addNewFormula">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -262,8 +262,7 @@
 
 
                     <div data-bind="foreach: Formulas.filtered()" class="flex-1 overflow-y-scroll">
-                        <!-- class="h-[calc(100vh-16rem)] overflow-y-scroll">-->
-
+                        
                         <div class="my-5 p-2 border bg-gray-200 shadow-md  rounded-md ">
                             <div class="flex justify-between items-center mb-1">
                                 <div class="ml-2 text-xl" data-bind="text: name"></div>
