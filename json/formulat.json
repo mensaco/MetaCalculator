@@ -5,11 +5,11 @@
     },
     {
         "name": "tërheqja gravitacionale",
-        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
+        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / Math.pow(d[m], 2)"
     },
     {
         "name": "Energjia potenciale",
-        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
+        "formula": "E[J] = 9.81 * m[kg] * h[m]"
     },
     {
         "name": "E = mc²",
@@ -18,5 +18,9 @@
     {
         "name": "Ligji i Ohm-it",
         "formula": "I[A] = U[V] / R[Ohm]"
+    },
+    {
+        "name":"Fuqia elektrike",
+        "formula" : "P[W] = U[V] * I[A]"
     }
 ]

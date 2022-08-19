@@ -1,9 +1,4 @@
-async function GetFormulatOnline() {
-    const response = await fetch("/json/formulat.json");
-    return await response.json();
-}
-
-var formulatJson = [
+var formulatJson = [];/*
     {
         "name": "Çmimi i rrymës 2022",
         "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
@@ -24,7 +19,7 @@ var formulatJson = [
         "name": "Ligji i Ohm-it",
         "formula": "I[A] = U[V] / R[Ohm]"
     }
-];
+];*/
 class IO {
     constructor() {
         var self = this;
@@ -146,7 +141,16 @@ class Formulas {
         }
 
         self.Delete = function (formula) {
-            self.formulas(self.formulas().filter(f => f.name !== formula.name));
+            //self.formulas(self.formulas().filter(f => f.name !== formula.name));
+            //const todelete = self.formulas().find(f => f.name !== formula.name);
+            var i = 0;
+            for (; i < self.formulas().length; i++) {
+                const f = self.formulas()[i];
+                if(f.name == formula.name && f.formula == formula.formula){
+                    self.formulas.splice(i,1);
+                    break;
+                }               
+            }
             self.saveToLocalStorage();
         }
 
@@ -171,10 +175,16 @@ class Formulas {
         }
 
         self.GetFormulatOnline = async function(){
-            const formulatOnline = await GetFormulatOnline();
+            const response = await fetch("/json/formulat.json");     
+            const formulatOnline = await response.json();
+            
             formulatOnline.forEach(f => {
-                self.formulas.push(f);
+                if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula)){
+                    self.formulas.push(f);
+                }
             });
+
+            self.saveToLocalStorage();
         }
 
         self.getFileText = function (file) {
@@ -184,8 +194,15 @@ class Formulas {
             reader.readAsText(file, "UTF-8");
             reader.onload = function () {
                 const json = JSON.parse(reader.result);
-                parentVM.IO.SaveLocally("formulas", json);
-                self.loadFromLocalStorage();
+
+                json.forEach(f => {
+                    if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula)){
+                        self.formulas.push(f);
+                    }
+                });
+                self.saveToLocalStorage();
+                // parentVM.IO.SaveLocally("formulas", json);
+                // self.loadFromLocalStorage();
             };
             reader.onerror = function (error) {
                 console.log('Error: ', error);

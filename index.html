@@ -196,13 +196,14 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                             </svg>
                         </button>
-                        
-                        <button class="btn-small btn-amber" data-bind="click: addNewFormula">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+
+                        <button class="btn-small btn-amber" data-bind="click: Formulas.GetFormulatOnline">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                                    id="path4" />
+                                
                             </svg>
                         </button>
 
@@ -400,6 +401,9 @@
                             <li class="p-1">- plus i bardhë mbi prapavi ngjyrë portokalli - klikojeni për ta shtuar një
                                 formulë të re. Shih sqarimin mbi <a href="#formatimi">formatin e formulave</a>.
                             </li>
+                            <li class="p-1">- glob i bardhë mbi prapavi ngjyrë portokalli - klikojeni për ta shtuar përkufizimet nga 
+                                <a href="/json/formulat.json" target="_blank" class="text-blue-700 font-bold">lista online</a>.
+                            </li>
                             <li class="p-1">
                                 - libër i bardhë mbi prapavi ngjyrë hiri - klikojeni për t'i paraqitur përkufizimet (në
                                 formë të JSON) e të gjitha formulave të ruajtura.
@@ -465,11 +469,11 @@
                             <li class="p-1">
                                 - butoni i dytë, me laps të bardhë mbi prapavi të gjelbër ju mundëson ta redaktoni
                                 formulën
-                                përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
+                                përkatëse. Pas klikimit, paraqitet formulari i redaktimit të formulës.
                             </li>
                             <li class="p-1">
                                 - butoni i tretë, me kovë të bardhë mbi prapavi të kuqe ju mundëson ta fshini formulën
-                                përkatëse. Pas klikimit, automatikisht paraqitet lista e formulave.
+                                përkatëse. Pas klikimit, paraqitet formulari i fshirjes së formulës.
                             </li>
                         </ul>
                     </div>
