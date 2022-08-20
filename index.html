@@ -268,7 +268,7 @@
 
                     <div data-bind="foreach: Formulas.filtered()" class="flex-1 overflow-y-scroll">
                         
-                        <div class="my-5 p-2 border bg-gray-200 shadow-md  rounded-md ">
+                        <div class="my-3 p-2 border shadow-md  rounded-md" data-bind="css:($index() % 2 == 0 ? 'bg-cyan-100': 'bg-sky-100')">
                             <div class="mb-1">
                                 <div class="ml-2 text-xl" data-bind="text: name"></div>   
                                 <!--ko if: !!$data.description -->                   
@@ -316,6 +316,7 @@
 
                             </div>
                         </div>
+                        <div class="my-1">&nbsp;</div>
                     </div>
                 </div>
                 <!-- /ko -->

@@ -180,7 +180,7 @@ class Formulas {
             const formulatOnline = await response.json();
             
             formulatOnline.forEach(f => {
-                if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula)){
+                if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula && ((s.description??"xyz") ==  (f.description??"xyz")))){
                     self.formulas.push(f);
                 }
             });
@@ -197,7 +197,7 @@ class Formulas {
                 const json = JSON.parse(reader.result);
 
                 json.forEach(f => {
-                    if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula)){
+                    if(!self.formulas().some(s => s.name == f.name && s.formula == f.formula && ((s.description??"xyz") ==  (f.description??"xyz")))){
                         self.formulas.push(f);
                     }
                 });
