@@ -1,41 +1,41 @@
 [
-    {
-      "name": "a + b",
-      "formula": "c = a + b",
-      "description": "mbledhje algjebrike"
-    },
-    {
-      "name": "E = mc²",
-      "formula": "E[J] = m[kg] * 9e16",
-      "description": "Barasvlera midis masës dhe energjisë, sipas Ajnshtajnit."
-    },
-    {
-      "name": "Energjia kinetike",
-      "formula": "E[J] = 1/2 * m[kg] * Math.pow(v[m/s],2)",
-      "description": "Energjia në xhulë e një trupi me masë m kilogramë që lëviz nëpër një trajektore drejtvizore me shpejtësi v metra në sekondë."
-    },
-    {
-      "name": "Energjia potenciale",
-      "formula": "E[J] = 9.81 * m[kg] * h[m]"
-    },
-    {
-      "name": "Fuqia elektrike",
-      "formula": "P[W] = U[V] * I[A]"
-    },
-    {
-      "name": "Ligji i Ohm-it",
-      "formula": "I[A] = U[V] / R[Ohm]"
-    },
-    {
-      "name": "Tërheqja gravitacionale",
-      "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / Math.pow(d[m], 2)"
-    },
-    {
-      "name": "Vëllimi i zorrës",
-      "formula": "V[l] = 0.1 * 0.25 * Math.PI * phi[cm] * phi[cm] * l[m]"
-    },
-    {
-      "name": "Çmimi i rrymës 2022",
-      "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
-    }
-  ]
+  {
+    "name": "a + b",
+    "formula": "c = a + b",
+    "description": "mbledhje algjebrike"
+  },
+  {
+    "name": "E = mc²",
+    "formula": "E[J] = m[kg] * 9e16",
+    "description": "Barasvlera midis masës dhe energjisë, sipas Ajnshtajnit."
+  },
+  {
+    "name": "Energjia kinetike",
+    "formula": "E[J] = 1/2 * m[kg] * Math.pow(v[m/s],2)",
+    "description": "Energjia në xhulë e një trupi me masë m kilogramë që lëviz nëpër një trajektore drejtvizore me shpejtësi v metra në sekondë."
+  },
+  {
+    "name": "Energjia potenciale",
+    "formula": "E[J] = 9.81 * m[kg] * h[m]"
+  },
+  {
+    "name": "Fuqia elektrike",
+    "formula": "P[W] = U[V] * I[A]"
+  },
+  {
+    "name": "Ligji i Ohm-it",
+    "formula": "I[A] = U[V] / R[Ohm]"
+  },
+  {
+    "name": "Tërheqja gravitacionale",
+    "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / Math.pow(d[m], 2)"
+  },
+  {
+    "name": "Vëllimi i zorrës",
+    "formula": "V[l] = 0.1 * 0.25 * Math.PI * phi[cm] * phi[cm] * l[m]"
+  },
+  {
+    "name": "Çmimi i rrymës 2022",
+    "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
+  }
+]
