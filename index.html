@@ -58,7 +58,7 @@
 
                         <div data-bind="foreach: Parser.variables()">
                             <div class="my-5 p-2 bg-green-100 rounded-md">
-                                <div class="mb-1 text-xl" data-bind="text: label()"></div>
+                                <div class="mb-1 text-xl" data-bind="text: label()"></div>                                
                                 <input type="text" data-bind="value: value" class="form-control">
                             </div>
                         </div>
@@ -114,12 +114,17 @@
                     <div class="my-2 p-2 bg-green-100 border border-green-100 rounded-md">
                         <div class="mb-1 text-xl">Redakto formulën</div>
                         <div class="my-3">
-                            <div>Emri i formulës</div>
+                            <div>emri i formulës</div>
                             <input type="text" data-bind="value: Formulas.formula().name" class="form-control" />
                         </div>
                         <div class="my-3">
                             <div>formula</div>
                             <textarea type="text" data-bind="value: Formulas.formula().formula"
+                                class="form-control"></textarea>
+                        </div>
+                        <div class="my-3">
+                            <div>përshkrimi</div>
+                            <textarea type="text" data-bind="value: Formulas.formula().description"
                                 class="form-control"></textarea>
                         </div>
                         <div class="mt-2">
@@ -264,11 +269,20 @@
                     <div data-bind="foreach: Formulas.filtered()" class="flex-1 overflow-y-scroll">
                         
                         <div class="my-5 p-2 border bg-gray-200 shadow-md  rounded-md ">
-                            <div class="flex justify-between items-center mb-1">
-                                <div class="ml-2 text-xl" data-bind="text: name"></div>
+                            <div class="mb-1">
+                                <div class="ml-2 text-xl" data-bind="text: name"></div>   
+                                <!--ko if: !!$data.description -->                   
+                                <div class="ml-2 mb-1 text-sm italic" data-bind="text: description"></div>
+                                <!-- /ko -->
                             </div>
 
-                            <div data-bind="text: formula" class="form-control bg-gray-50"></div>
+                            
+
+                            <div>
+                                <div data-bind="text: formula" class="form-control bg-gray-50"></div>      
+                                
+                            </div>
+
                             <div class="mt-3 flex justify-between">
                                 
                                 <button class="btn-small btn-sky"

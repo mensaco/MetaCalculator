@@ -38,9 +38,10 @@ class IO {
 }
 
 class Formula {
-    constructor(name, value) {
+    constructor(name, value, description) {
         this.name = ko.observable(name);
         this.formula = ko.observable(value);
+        this.description = ko.observable(description);
     }
 }
 
