@@ -35,6 +35,14 @@
     "formula": "V[l] = 0.1 * 0.25 * Math.PI * phi[cm] * phi[cm] * l[m]"
   },
   {
+    "name": "NetoNgaBruto",
+    "formula": "Netto[€] = Brutto[€] / (1+TVSh[%]/100)"
+  },
+  {
+    "name": "TvshNgaBruto",
+    "formula": "GjithsejTVSH[€] = Bruto[€] * (1 - 1 / (1+TVSH[%]/100))"
+  },
+  {
     "name": "Çmimi i rrymës 2022",
     "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
   }
