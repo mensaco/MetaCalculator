@@ -1,25 +1,27 @@
-var formulatJson = [];/*
-    {
-        "name": "Çmimi i rrymës 2022",
-        "formula": "Gjithsej[€] = 0.19587 * Harxhimi[kWh]"
-    },
-    {
-        "name": "tërheqja gravitacionale",
-        "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / (d[m] * d[m])"
-    },
-    {
-        "name": "Energjia potenciale",
-        "formula": "E[J] = 9.81[m/s²] * m[kg] * h[m]"
-    },
-    {
-        "name": "E = mc²",
-        "formula": "E[J] = m[kg] * 9e16"
-    },
-    {
-        "name": "Ligji i Ohm-it",
-        "formula": "I[A] = U[V] / R[Ohm]"
+var formulatJson = [];
+
+class Preprocessor {
+    constructor() {
+        var self = this;
+       
+        self.Preprocess = function(){
+            Array.from(document.querySelectorAll("PPSVG")).forEach(t => {
+                const e = document.createElement("div");
+                e.innerHTML = `
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="${t.getAttribute("d")}"
+                                         />
+                                </svg>`;
+
+                t.replaceWith(e.firstElementChild);
+            });
+           
+        }
     }
-];*/
+}
+
+//përmban funksionet për shkrimin dhe leximin në localStorage të browserit
 class IO {
     constructor() {
         var self = this;
@@ -37,6 +39,7 @@ class IO {
     }
 }
 
+/// përkufizon strukturën e një formuleje
 class Formula {
     constructor(name, value, description) {
         this.name = ko.observable(name);
@@ -45,6 +48,7 @@ class Formula {
     }
 }
 
+/// përmban të vrojtueshmet (observables) dhe funksionet që kanë të bëjnë me formulat
 class Formulas {
     constructor(parentVM) {
         var self = this;
@@ -250,6 +254,9 @@ class Formulas {
 
     }
 }
+
+/// përman të vrojtueshmet dhe funksionet që përkthejnë formulën në një konstrukt të kuptueshëm për të llogaritur vlerat e saj
+/// nga javascript
 class Parser {
     constructor(parentVM) {
         var self = this;
@@ -373,7 +380,8 @@ class Parser {
 
 }
 
-
+/// Modeli kryesor i pamjes (ViewModel)
+/// lidh të gjitha pjesët dhe koordinon gjithëçka nga niveli më i sipërm i programit
 class MainViewModel {
     constructor() {
         const self = this;
@@ -400,7 +408,8 @@ class MainViewModel {
     }
 }
 
-
+const PP = new Preprocessor();
+PP.Preprocess();
 
 
 const mainViewModel = new MainViewModel();
