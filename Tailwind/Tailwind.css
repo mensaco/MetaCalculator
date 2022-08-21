@@ -70,4 +70,9 @@
         @apply p-1 border border-gray-300 rounded-md;
     }
 
+
+    .menu-item {
+        @apply inline-block px-4 py-3 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300;
+    }
+
 }
