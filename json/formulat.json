@@ -19,6 +19,10 @@
     "formula": "E[J] = 9.81 * m[kg] * h[m]"
   },
   {
+    "name": "Frekuenca e një qarku lëkundës",
+    "formula": "f[MHz]=1000/(2*Math.PI*Math.sqrt(L[µH]*C[pF]))"
+  },
+  {
     "name": "Fuqia elektrike",
     "formula": "P[W] = U[V] * I[A]"
   },
@@ -26,6 +30,14 @@
     "name": "Induktiviteti i një bobine njështresore [µH][cm]",
     "formula": "L_s[µH]=0.006283185307179587*d[cm]*N*N*( Math.log(1+1.5707963267948966*d[cm]/l[cm]) + 1/(2.3004 + 3.437*l[cm]/d[cm] + 1.7636*l[cm]/d[cm]*l[cm]/d[cm] - 0.47/Math.pow(0.755+d[cm]/l[cm],1.44) ) )",
     "description": "Shih: http://electronbunker.ca/eb/CalcMethods3b.html (34)"
+  },
+  {
+    "name": "Kapaciteti për qarkun lëkundës",
+    "formula": "C[pF]=1e6/(4*Math.PI*Math.PI*f[MHz]*f[MHz]*L[µH])"
+  },
+  {
+    "name": "Induktiviteti për qarkun lëkundës",
+    "formula": "L[µH]]=1e6/(4*Math.PI*Math.PI*f[MHz]*f[MHz]*C[pF])"
   },
   {
     "name": "Ligji i Ohm-it",
