@@ -381,7 +381,7 @@ class Parser {
 }
 
 /// Modeli kryesor i pamjes (ViewModel)
-/// lidh të gjitha pjesët dhe koordinon gjithëçka nga niveli më i sipërm i programit
+/// lidh të gjitha pjesët dhe koordinon gjithçka nga niveli më i sipërm i programit
 class MainViewModel {
     constructor() {
         const self = this;
