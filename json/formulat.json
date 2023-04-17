@@ -37,7 +37,7 @@
   },
   {
     "name": "Induktiviteti për qarkun lëkundës",
-    "formula": "L[µH]]=1e6/(4*Math.PI*Math.PI*f[MHz]*f[MHz]*C[pF])"
+    "formula": "L[µH]=1e6/(4*Math.PI*Math.PI*f[MHz]*f[MHz]*C[pF])"
   },
   {
     "name": "Ligji i Ohm-it",
