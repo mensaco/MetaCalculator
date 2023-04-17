@@ -23,16 +23,13 @@
     "formula": "P[W] = U[V] * I[A]"
   },
   {
+    "name": "Induktiviteti i një bobine njështresore [µH][cm]",
+    "formula": "L_s[µH]=0.006283185307179587*d[cm]*N*N*( Math.log(1+1.5707963267948966*d[cm]/l[cm]) + 1/(2.3004 + 3.437*l[cm]/d[cm] + 1.7636*l[cm]/d[cm]*l[cm]/d[cm] - 0.47/Math.pow(0.755+d[cm]/l[cm],1.44) ) )",
+    "description": "Shih: http://electronbunker.ca/eb/CalcMethods3b.html (34)"
+  },
+  {
     "name": "Ligji i Ohm-it",
     "formula": "I[A] = U[V] / R[Ohm]"
-  },
-  {
-    "name": "Tërheqja gravitacionale",
-    "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / Math.pow(d[m], 2)"
-  },
-  {
-    "name": "Vëllimi i zorrës",
-    "formula": "V[l] = 0.1 * 0.25 * Math.PI * phi[cm] * phi[cm] * l[m]"
   },
   {
     "name": "NetoNgaBruto",
@@ -41,6 +38,14 @@
   {
     "name": "TvshNgaBruto",
     "formula": "GjithsejTVSH[€] = Bruto[€] * (1 - 1 / (1+TVSH[%]/100))"
+  },
+  {
+    "name": "Tërheqja gravitacionale",
+    "formula": "F[N] = 6.67259e-11 * m1[kg] * m2[kg] / Math.pow(d[m], 2)"
+  },
+  {
+    "name": "Vëllimi i zorrës",
+    "formula": "V[l] = 0.1 * 0.25 * Math.PI * phi[cm] * phi[cm] * l[m]"
   },
   {
     "name": "Çmimi i rrymës 2022",
